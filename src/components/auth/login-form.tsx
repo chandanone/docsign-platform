@@ -3,9 +3,11 @@
 
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { loginUser } from '@/lib/actions/auth';
+
 import { useFormState, useFormStatus } from 'react-dom';
 import Link from 'next/link';
+import { useActionState } from 'react';
+import { loginUser } from '@/lib/actions/auth';
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -17,7 +19,8 @@ function SubmitButton() {
 }
 
 export function LoginForm() {
-  const [state, formAction] = useFormState(loginUser, { error: '' });
+  //const [state, formAction] = useFormState(loginUser, { error: '' });
+  const [state, formAction] = useActionState(loginUser, { error: '' });
 
   return (
     <div className="space-y-4">

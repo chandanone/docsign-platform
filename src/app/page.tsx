@@ -190,7 +190,7 @@ export default function HomePage() {
               <p className="text-slate-400 mb-10 max-w-xl mx-auto text-lg leading-relaxed">
                 Join 10,000+ businesses automating their workflows. Get started today with 5 free documents.
               </p>
-              <Button size="lg" className="bg-white text-slate-900 hover:bg-slate-100 h-14 px-12 text-lg rounded-full">
+              <Button size="lg" className="bg-grey-200 text-slate-900 hover:bg-grey-600 h-14 px-12 text-lg rounded-full">
                 Get Started for Free
               </Button>
             </div>
