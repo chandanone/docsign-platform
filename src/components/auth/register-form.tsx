@@ -2,22 +2,23 @@
 'use client';
 
 import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
 import { registerUser } from '@/lib/actions/auth';
-import { useFormState, useFormStatus } from 'react-dom';
+
+import { Button } from '@/components/ui/button';
+import { useActionState } from "react";
 import Link from 'next/link';
 
-function SubmitButton() {
-  const { pending } = useFormStatus();
-  return (
-    <Button type="submit" disabled={pending} className="w-full">
-      {pending ? 'Registering...' : 'Register'}
-    </Button>
-  );
-}
+
+type ActionState = {
+  error: string | null;
+};
+
+const initialState: ActionState = {
+  error: null,
+};
 
 export function RegisterForm() {
-  const [state, formAction] = useFormState(registerUser, null);
+  const [state, formAction, isPending] = useActionState(registerUser, initialState);
 
   return (
     <div className="space-y-4">
@@ -37,7 +38,9 @@ export function RegisterForm() {
         {state?.error && (
           <p className="text-red-600 text-sm">{state.error}</p>
         )}
-        <SubmitButton />
+        <Button type="submit" disabled={isPending} className="w-full">
+          {isPending ? 'Creating account...' : 'Register'}
+        </Button>
       </form>
 
       <div className="relative">

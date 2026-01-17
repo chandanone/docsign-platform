@@ -8,7 +8,7 @@ import { createSession, deleteSession } from '@/lib/auth/session';
 import { eq } from 'drizzle-orm';
 import { redirect } from 'next/navigation';
 
-export async function registerUser(formData: FormData) {
+export async function registerUser(prevState: any,formData: FormData) {
   const email = formData.get('email') as string;
   const password = formData.get('password') as string;
   const name = formData.get('name') as string;
@@ -36,7 +36,7 @@ export async function registerUser(formData: FormData) {
   redirect('/dashboard');
 }
 
-export async function loginUser(formData: FormData) {
+export async function loginUser(prevState: any,formData: FormData) {
   const email = formData.get('email') as string;
   const password = formData.get('password') as string;
 

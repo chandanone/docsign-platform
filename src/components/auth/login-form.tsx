@@ -3,25 +3,21 @@
 
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-
-import { useFormState, useFormStatus } from 'react-dom';
 import Link from 'next/link';
 import { useActionState } from 'react';
 import { loginUser } from '@/lib/actions/auth';
 
-function SubmitButton() {
-  const { pending } = useFormStatus();
-  return (
-    <Button type="submit" disabled={pending} className="w-full">
-      {pending ? 'Logging in...' : 'Login'}
-    </Button>
-  );
-}
+type ActionState = {
+  error: string | null;
+};
+
+const initialState: ActionState = {
+  error: null,
+};
 
 export function LoginForm() {
-  //const [state, formAction] = useFormState(loginUser, { error: '' });
-  const [state, formAction] = useActionState(loginUser, { error: '' });
-
+  
+  const [state, formAction, isPending] = useActionState(loginUser, initialState);
   return (
     <div className="space-y-4">
       <form action={formAction} className="space-y-4">
@@ -36,7 +32,11 @@ export function LoginForm() {
         {state?.error && (
           <p className="text-red-600 text-sm">{state.error}</p>
         )}
-        <SubmitButton />
+        
+        {/* Using isPending directly here is better than useFormStatus */}
+        <Button type="submit" disabled={isPending} className="w-full">
+          {isPending ? 'Logging in...' : 'Login'}
+        </Button>
       </form>
       
       <div className="relative">
